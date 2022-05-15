@@ -1,75 +1,92 @@
-const fs = require('fs');
+const fileSystem = require('fs');
 
 class Container {
-    static PATH = './tmp/';
+    static DIRECTORY = './tmp/';
     static ENCODING = 'utf-8';
 
     constructor(name) {
         this.name = name;
-        this.objects = [];
+        this.path = Container.DIRECTORY + this.name;
+        this.objects = new Array();
     }
 
-    utils = {
-        generateId: () => {
-            let id = this.objects.length ? (this.objects[this.objects.length - 1].id + 1) : 1;
-            return id;
-        },
-        addToObjects: (object) => {
-            object.id = this.utils.generateId();
-            this.objects.push(object);
-        }
-    }
-
-    save = async (object) => {
+    makeDirectory = async () => {
         try {
-            this.utils.addToObjects(object);
-            await fs.promises.writeFile(Container.PATH + this.name, JSON.stringify(this.objects), Container.ENCODING);
-            return object.id;
+            await fileSystem.promises.mkdir(Container.DIRECTORY);
         } catch (error) {
-            console.error(error);
+            if (error) return console.log(`[makeDirectory] El directorio ${Container.DIRECTORY} ya existe o no pudo ser creado`);
         }
+    }
+
+    saveAll = async () => {
+        try {
+            await fileSystem.promises.writeFile(this.path, JSON.stringify(this.objects, null, '\t'), Container.ENCODING);
+        } catch (error) {
+            console.error('[saveAll] No se pudo guardar en el archivo');
+        }
+    }
+
+    saveOne = async (object) => {
+        await this.getAll();
+        object.id = this.objects.length ? (this.objects[this.objects.length - 1].id + 1) : 1;
+        this.objects.push(object);
+        await this.saveAll();
+        return object.id;
     }
 
     getAll = async () => {
         try {
-            this.objects = await JSON.parse(await fs.promises.readFile(Container.PATH + this.name, Container.ENCODING));
-            return this.objects;
+            this.objects = await JSON.parse(await fileSystem.promises.readFile(this.path, Container.ENCODING));
         } catch (error) {
-            console.error(error);
+            console.error('[getAll] No se pudo leer el archivo');
         }
     }
 
     getById = async (id) => {
-        try {
-            let object = (await this.getAll()).filter((o) => o.id === id)[0];
-            if (!object) throw `Objeto con el id [${id}] no encontrado`;
-            return object;
-        } catch (error) {
-            console.error(error);
-        }
+        await this.getAll();
+        let object = this.objects.filter((o) => o.id === id)[0];
+        return !object ? null : object;
     }
+
+    deleteById = async (id) => {
+        await this.getAll();
+        this.objects = this.objects.filter(o => o.id !== id);
+        await this.saveAll();
+    }
+
+    deleteAll = async () => {
+        this.objects = new Array();
+        await this.saveAll();
+    }
+
 }
 
-const container = new Container('prueba.json');
-
-/*
-container.save({aaaaaa:'asd', zxc: '123'})
-container.save({aaaaaa:'asd', zxc: '123'})
-container.save({aaaaaa:'asd', zxc: '123'})
-container.save({aaaaaa:'asd', zxc: '123'})
-container.save({aaaaaa:'asd', zxc: '123'})
-container.save({aaaaaa:'asd', zxc: '123'})
-container.save({aaaaaa:'asd', zxc: '123'})
-*/
-
 (async () => {
-    //await container.getAll();
+    const container = new Container('prueba.json');
 
-    //console.table(container.objects);
+    await container.makeDirectory();
 
-    //console.log(await container.getById(55));
+    await container.saveOne({
+        "name": "Shrimp - Black Tiger 6 - 8",
+        "price": 316.98,
+        "thumbnail": "http://dummyimage.com/150x100.png/dddddd/000000"
+    });
+    await container.saveOne({
+        "name": "Truffle Shells - Semi - Sweet",
+        "price": 338.34,
+        "thumbnail": "http://dummyimage.com/108x100.png/cc0000/ffffff"
+    });
+    await container.saveOne({
+        "name": "Oysters - Smoked",
+        "price": 165.55,
+        "thumbnail": "http://dummyimage.com/180x100.png/ff4444/ffffff"
+    });
+
+    console.log(await container.getById(10));
+
+    console.log(await container.getById(9999));
+
+    // await container.deleteById(3);
+
+    // await container.deleteAll();
 })();
-
-
-
-

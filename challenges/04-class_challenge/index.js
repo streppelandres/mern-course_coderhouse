@@ -1,4 +1,3 @@
-const { Console } = require('console');
 const fileSystem = require('fs');
 
 class Container {

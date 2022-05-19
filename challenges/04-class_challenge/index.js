@@ -1,3 +1,4 @@
+const { Console } = require('console');
 const fileSystem = require('fs');
 
 class Container {
@@ -37,6 +38,7 @@ class Container {
     getAll = async () => {
         try {
             this.objects = await JSON.parse(await fileSystem.promises.readFile(this.path, Container.ENCODING));
+            return this.objects;
         } catch (error) {
             console.error('[getAll] No se pudo leer el archivo');
         }
@@ -82,11 +84,19 @@ class Container {
         "thumbnail": "http://dummyimage.com/180x100.png/ff4444/ffffff"
     });
 
-    console.log(await container.getById(10));
+    console.log('Leo todo el archivo: ');
+    console.table(await container.getAll());
 
+    console.log('Traigo un ID que no existe:');
     console.log(await container.getById(9999));
 
-    // await container.deleteById(3);
+    console.log('Leo por ID: ');
+    console.table(await container.getById(1));
 
+    console.log('Elimino el ID [2]: ');
+    await container.deleteById(2);
+    console.table(await container.getAll());
+
+    console.log('Elimino todos: ');
     // await container.deleteAll();
 })();

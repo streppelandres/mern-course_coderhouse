@@ -1,0 +1,175 @@
+{
+	"info": {
+		"_postman_id": "bf49155e-32a6-42b6-a2d8-a1bbee4132cb",
+		"name": "acaballero_08-class_challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8558476"
+	},
+	"item": [
+		{
+			"name": "Obtener productos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:{{puerto}}/api/productos",
+					"host": [
+						"localhost"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"productos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener por id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:{{puerto}}/api/productos/10",
+					"host": [
+						"localhost"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"productos",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar por id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:{{puerto}}/api/productos/29",
+					"host": [
+						"localhost"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"productos",
+						"29"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar nuevo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Guardabarro de Falcon\",\r\n    \"thumbnail\": \"http://dummyimage.com/180x100.png/ff4444/ffffff\",\r\n    \"price\": 8799\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:{{puerto}}/api/productos",
+					"host": [
+						"localhost"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"productos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar uno",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Guardabarro de Falcon actualizado sarasa intensifies\",\r\n    \"thumbnail\": \"http://dummyimage.com/180x100.png/ff4444/ffffff\",\r\n    \"price\": 123123\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:{{puerto}}/api/productos/3",
+					"host": [
+						"localhost"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"api",
+						"productos",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "puerto",
+			"value": "8080"
+		}
+	]
+}

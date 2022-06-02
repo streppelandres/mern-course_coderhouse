@@ -34,6 +34,19 @@ class Container {
         return object.id;
     }
 
+    updateOne = async (id, newObject) => {
+        await this.getAll();
+        
+        // Creo listado auxiliar con todos los objetos menos el que se va actualizar
+        const auxObjects = this.objects.filter((o) => o.id != id);
+        
+        // Guardo el nuevo objeto
+        newObject.id = id;
+        auxObjects.push(newObject);
+
+        await this.saveAll();
+    }
+
     getAll = async () => {
         try {
             this.objects = await JSON.parse(await fileSystem.promises.readFile(this.path, Container.ENCODING));

@@ -20,6 +20,7 @@ class Container {
 
     saveAll = async () => {
         try {
+            this.objects = this.objects.sort((a, b) => a.id - b.id);
             await fileSystem.promises.writeFile(this.path, JSON.stringify(this.objects, null, '\t'), Container.ENCODING);
         } catch (error) {
             console.error('[saveAll] No se pudo guardar en el archivo');

@@ -37,13 +37,19 @@ class Container {
 
     updateOne = async (id, newObject) => {
         await this.getAll();
-        
+
+        const beforeFilterSize = this.objects.length;
+
         // Creo listado auxiliar con todos los objetos menos el que se va actualizar
         const auxObjects = this.objects.filter((o) => o.id != id);
-        
+
+        if (beforeFilterSize == this.objects.length) throw `No se encontró el id ${id}`;
+
         // Guardo el nuevo objeto
         newObject.id = id;
         auxObjects.push(newObject);
+
+        this.objects = auxObjects;
 
         await this.saveAll();
     }
@@ -59,13 +65,20 @@ class Container {
 
     getById = async (id) => {
         await this.getAll();
+
         let object = this.objects.filter((o) => o.id === id)[0];
-        return !object ? null : object;
+        if (!object) throw `No se encontró el id ${id}`;
+
+        return object;
     }
 
     deleteById = async (id) => {
         await this.getAll();
+
+        const beforeFilterSize = this.objects.length;
         this.objects = this.objects.filter(o => o.id !== id);
+        if (beforeFilterSize == this.objects.length) throw `No se encontró el id ${id}`;
+
         await this.saveAll();
     }
 

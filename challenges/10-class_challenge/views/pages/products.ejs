@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<%- include('../partials/head', { title : 'Productos' }); -%>
+
+<body>
+
+    <%- include('../partials/header'); -%>
+
+    <main>
+        <h3>Productos</h3>
+        <div id="products-wrapper">
+            <p>Cargando productos...</p>
+        </div>
+    </main>
+
+    <%- include('../partials/footer'); -%>
+
+    <script>
+        (() => {
+            const products = JSON.parse('<%- JSON.stringify(products) %>');
+            document.getElementById('products-wrapper').innerHTML = products.length == 0 ? 'No hay productos :(' : products.map(product => {
+                let {name, thumbnail, price, id} = product;
+                return (`
+                    <article data-product-id='${id}'>
+                        <h4>${name}</h4>
+                        <ul>
+                            <li>${price}</li>
+                            <li>${thumbnail}</li>
+                        </ul>
+                    </article>`
+                );
+            }).join('');
+        })();
+    </script>
+</body>
+
+</html>
+

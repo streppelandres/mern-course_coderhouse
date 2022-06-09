@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<%- include('../partials/head', { title : 'Inicio' }); -%>
+
+<body>
+
+    <%- include('../partials/header'); -%>
+
+    <main>
+        <h1>Guardar un producto</h1>
+
+        <form action="/productos" method="post">
+            <div>
+                <label for="name">Nombre</label>
+                <input name="name" type="text">
+            </div>
+
+            <div>
+                <label for="price">Precio</label>
+                <input name="price" type="number">
+            </div>
+
+            <div>
+                <label for="thumbnail">Imagen URL</label>
+                <input name="thumbnail" type="text">
+            </div>
+
+            <button>Enviar</button>
+        </form>
+
+    </main>
+
+    <%- include('../partials/footer'); -%>
+
+</body>
+
+</html>

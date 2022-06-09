@@ -10,8 +10,7 @@ const container = new Container('data_10-challenge.json');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
-app.use(express.static(`${__dirname}/public`));
-
+app.use('/', express.static(`${__dirname}/public`));
 
 app.get('/', async (_, res) => {
     res.render('pages/index');
@@ -22,8 +21,6 @@ app.get('/productos', async (_, res) => {
 });
 
 app.post('/productos', async (req, res) => {
-    console.log(`Se va guardar el producto [${JSON.stringify(req.body)}]`);
-
     try {
         const { name, thumbnail, price } = req.body;
         await container.saveOne({ name, thumbnail, price });

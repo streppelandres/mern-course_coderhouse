@@ -9,9 +9,24 @@
 
     <main>
         <h3>Productos</h3>
-        <div id="products-wrapper">
-            <p>Cargando productos...</p>
-        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Imagen</th>
+                </tr>
+            </thead>
+            <tbody id="products-wrapper">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
     </main>
 
     <%- include('../partials/footer'); -%>
@@ -22,13 +37,11 @@
             document.getElementById('products-wrapper').innerHTML = products.length == 0 ? 'No hay productos :(' : products.map(product => {
                 let {name, thumbnail, price, id} = product;
                 return (`
-                    <article data-product-id='${id}'>
-                        <h4>${name}</h4>
-                        <ul>
-                            <li>${price}</li>
-                            <li>${thumbnail}</li>
-                        </ul>
-                    </article>`
+                    <tr data-product-id='${id}'>
+                        <td>${name}</td>
+                        <td>$${price}</td>
+                        <td>${thumbnail}</td>
+                    </tr>`
                 );
             }).join('');
         })();

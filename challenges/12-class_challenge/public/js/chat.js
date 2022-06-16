@@ -1,8 +1,28 @@
 const CHAT_UTILS = {
     messages: {
         elementId: 'chat-messages-container',
+        displayElementId: 'chat-messages-display',
         toggleMessages: (toggle) => {
             document.getElementById(CHAT_UTILS.messages.elementId).style.display = toggle ? 'block' : 'none';
+        },
+        getAllMessages: async () => {
+            const response = await fetch('/messages');
+            const messages = JSON.parse(await response.text());
+            console.table(messages);
+
+            document.getElementById(CHAT_UTILS.messages.displayElementId).innerHTML = messages.map(messageData => {
+                return CHAT_UTILS.messages.buildMessage(messageData);
+            }).join('');
+        },
+        buildMessage: (messageData) => {
+            const { author, message, time, id } = messageData;
+            return (`
+                <p id="${id}">
+                    <span>${time}</span>
+                    <span>${author}</span>
+                    <span>${message}</span>
+                </p>
+            `);
         }
     },
     register: {
@@ -35,17 +55,15 @@ const CHAT_UTILS = {
     }
 };
 
+// Me fijo si ya está registrado
 let isRegistered = CHAT_UTILS.register.isRegistered();
 CHAT_UTILS.register.toggleRegister(!isRegistered);
 CHAT_UTILS.messages.toggleMessages(isRegistered);
 
-document.getElementById(CHAT_UTILS.register.buttonElementId).onclick = e => {
-    CHAT_UTILS.register.registerButtonClick(e);
-}
+// Bind al hacer click en el botón de registrarse
+document.getElementById(CHAT_UTILS.register.buttonElementId).onclick = e => CHAT_UTILS.register.registerButtonClick(e);
 
 (async () => {
-    
-
-
-    
+    // De primeras cargo todos los mensajes guardados
+    await CHAT_UTILS.messages.getAllMessages();
 })();

@@ -8,7 +8,8 @@ const io = new Server(server);
 
 const port = process.env.PORT || 8080;
 
-const container = new Container('data_12-challenge.json');
+const productsContainer = new Container('data_12-challenge_products.json');
+const messagesContainer = new Container('data_12-challenge_messages.json');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -20,13 +21,13 @@ app.get('/', async (_, res) => {
 });
 
 app.get('/products', async (_, res) => {
-    res.render('partials/products/list', { products: await container.getAll() });
+    res.render('partials/products/list', { products: await productsContainer.getAll() });
 });
 
 io.on('connection', async (socket) => {
     socket.on('products-add', async (product) => {
         const { name, thumbnail, price } = product;
-        await container.saveOne({ name, thumbnail, price });
+        await productsContainer.saveOne({ name, thumbnail, price });
         io.sockets.emit('products-list');
     });
 });

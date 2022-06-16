@@ -1,0 +1,22 @@
+<div>
+    <h3>Productos</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Imagen</th>
+            </tr>
+        </thead>
+        <tbody id="products-tbody">
+            <% products.forEach((product) => { %>
+                <% let { name, thumbnail, price, id } = product; %>
+                <tr id='<%= id %>'>
+                    <td><%= name %></td>
+                    <td><%= price %></td>
+                    <td><%= thumbnail %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>

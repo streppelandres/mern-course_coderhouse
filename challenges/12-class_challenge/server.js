@@ -45,7 +45,7 @@ io.on('connection', async (socket) => {
         };
 
         // Lo guardo en el container
-        await productsContainer.saveOne(newMessage);
+        await messagesContainer.saveOne(newMessage);
 
         // Lo emito asi lo appendea en el box
         io.sockets.emit('messages-append', newMessage);

@@ -2,6 +2,7 @@ const CHAT_UTILS = {
     messages: {
         elementId: 'chat-messages-container',
         displayElementId: 'chat-messages-display',
+        buttonElementId: 'chat-message-button',
         toggleMessages: (toggle) => {
             document.getElementById(CHAT_UTILS.messages.elementId).style.display = toggle ? 'block' : 'none';
         },
@@ -23,6 +24,34 @@ const CHAT_UTILS = {
                     <span>${message}</span>
                 </p>
             `);
+        },
+        appendNewMessage: (messageData) => {
+            document.getElementById(CHAT_UTILS.messages.displayElementId).innerHTML += CHAT_UTILS.messages.buildMessage(messageData);
+        },
+        getMessageData: () => {
+            const messageInput = document.getElementById('chat-message-msg');
+            const message = messageInput.value;
+
+            messageInput.value = '';
+
+            if(message == '') {
+                let errorMessage = 'Tenes que ingresar un mensaje para poder enviar';
+                alert(errorMessage)
+                throw errorMessage;
+            }
+            
+            return {
+                author: CHAT_UTILS.register.getRegisterEmail(),
+                message: message
+            }
+        },
+        sendMessage: (messageData) => {
+            SOCKET.emit('messages-send', messageData);
+        },
+        messagesButtonClick: (e) => {
+            e.preventDefault();
+            const messageData = CHAT_UTILS.messages.getMessageData();
+            CHAT_UTILS.messages.sendMessage(messageData);
         }
     },
     register: {
@@ -67,3 +96,9 @@ document.getElementById(CHAT_UTILS.register.buttonElementId).onclick = e => CHAT
     // De primeras cargo todos los mensajes guardados
     await CHAT_UTILS.messages.getAllMessages();
 })();
+
+document.getElementById(CHAT_UTILS.messages.buttonElementId).onclick = e => CHAT_UTILS.messages.messagesButtonClick(e);
+
+SOCKET.on('messages-append', (messageData) => {
+    CHAT_UTILS.messages.appendNewMessage(messageData);
+});

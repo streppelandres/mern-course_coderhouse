@@ -4,11 +4,11 @@ class Product implements ContainerModel {
     thumbnail: string;
     id: number;
 
-    constructor(name: string, price: number, thumbnail: string, id: number) {
+    constructor(name: string, price: number, thumbnail: string) {
         this.name = name;
         this.price = price;
         this.thumbnail = thumbnail;
-        this.id = id;
+        this.id = 0;
     }
 
 }

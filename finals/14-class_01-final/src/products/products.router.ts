@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import Container from "../container/container.utils";
 import Product from "./product.model";
+import checkAuthorization from "../utils/authorization.util";
 
 const productsRouter: Router = Router();
 
@@ -29,6 +30,7 @@ productsRouter.get('/:id', async (req: Request, res: Response) => {
 });
 
 productsRouter.post('/', async (req: Request, res: Response) => {
+    if (!checkAuthorization('/products', 'post', res)) return;
     try {
         const { name, thumbnail, price } = req.body;
         const id = await productsContainer.saveOne(new Product(name, price, thumbnail));
@@ -43,6 +45,7 @@ productsRouter.post('/', async (req: Request, res: Response) => {
 });
 
 productsRouter.put('/:id', async (req: Request, res: Response) => {
+    if (!checkAuthorization('/products', 'put', res)) return;
     try {
         const { name, thumbnail, price } = req.body;
         await productsContainer.updateOne(Number(req.params.id), new Product(name, price, thumbnail));
@@ -56,6 +59,7 @@ productsRouter.put('/:id', async (req: Request, res: Response) => {
 });
 
 productsRouter.delete('/:id', async (req: Request, res: Response) => {
+    if (!checkAuthorization('/products', 'delete', res)) return;
     const id: string = req.params.id;
     try {
         await productsContainer.deleteById(Number(id));

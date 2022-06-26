@@ -55,4 +55,17 @@ productsRouter.put('/:id', async (req: Request, res: Response) => {
     }
 });
 
+productsRouter.delete('/:id', async (req: Request, res: Response) => {
+    const id: string = req.params.id;
+    try {
+        await productsContainer.deleteById(Number(id));
+        res.status(200).send({
+            message: `Producto con el id ${id} eliminado`
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ message: `No se pudo eliminar el producto con el id ${id}` });
+    }
+});
+
 export default productsRouter;

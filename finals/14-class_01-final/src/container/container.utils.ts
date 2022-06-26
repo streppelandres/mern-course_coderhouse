@@ -20,7 +20,6 @@ export default class Container {
             if (existsSync(Container.DIRECTORY)) return;
             await mkdir(Container.DIRECTORY);
         } catch (error) {
-            console.error(error);
             throw new Error(`Error trying to create the directory: ${Container.DIRECTORY}`);
         }
     }
@@ -32,7 +31,6 @@ export default class Container {
             );
             return this.objects;
         } catch (error) {
-            console.error(error);
             throw new Error(`Error trying to read file: ${this.path}`);
         }
     }
@@ -42,7 +40,6 @@ export default class Container {
             this.objects = this.objects.sort((a: any, b: any) => a.id - b.id);
             await writeFile(this.path, JSON.stringify(this.objects, null, '\t'), "utf-8");
         } catch (error) {
-            console.error(error);
             throw new Error(`Error trying to write file: ${this.path}`);
         }
     }
@@ -55,8 +52,16 @@ export default class Container {
             await this.saveAll();
             return object.id;
         } catch (error) {
-            console.error(error);
             throw new Error(`Error trying to save object: ${object}`);
         }
+    }
+
+    public getById = async (id: number): Promise<ContainerModel> => {
+        await this.getAll();
+
+        let object = this.objects.filter((o) => o.id === id)[0];
+        if (!object) throw new Error(`No se encontró el id ${id}`);
+
+        return object;
     }
 }

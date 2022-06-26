@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express";
 import Container from "../container/container.utils";
+import Product from "./product.model";
 
 const productsRouter: Router = Router();
 
@@ -17,7 +18,7 @@ productsRouter.get('/', async (req: Request, res: Response) => {
 });
 
 productsRouter.get('/:id', async (req: Request, res: Response) => {
-    const id = req.params.id;
+    const id: string = req.params.id;
     try {
         const product: ContainerModel = await productsContainer.getById(Number(id));
         res.status(200).send(product);
@@ -36,7 +37,21 @@ productsRouter.post('/', async (req: Request, res: Response) => {
             id: id
         })
     } catch (error) {
+        console.error(error);
         res.status(500).send({ message: 'No se pudo guardar el producto' });
+    }
+});
+
+productsRouter.put('/:id', async (req: Request, res: Response) => {
+    try {
+        const { name, thumbnail, price } = req.body;
+        await productsContainer.updateOne(Number(req.params.id), new Product(name, price, thumbnail));
+        res.status(200).send({
+            success: `Producto actualizado con el id [${req.params.id}]`
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ message: 'No se pudo actualizar el producto' });
     }
 });
 

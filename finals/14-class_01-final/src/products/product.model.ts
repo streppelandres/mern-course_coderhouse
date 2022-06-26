@@ -1,4 +1,4 @@
-class Product implements ContainerModel {
+export default class Product implements ContainerModel {
     name: string;
     price: number;
     thumbnail: string;

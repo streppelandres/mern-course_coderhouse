@@ -68,12 +68,10 @@ export default class Container {
     public updateOne = async (id: number, newObject: ContainerModel) => {
         await this.getAll();
 
-        const beforeFilterSize: number = this.objects.length;
-
         // Creo listado auxiliar con todos los objetos menos el que se va actualizar
         const auxObjects: Array<ContainerModel> = this.objects.filter((o) => o.id != id);
 
-        if (beforeFilterSize == this.objects.length) {
+        if (this.objects.length == auxObjects.length) {
             throw new Error(`No se encontró el id ${id}`);
         }
 

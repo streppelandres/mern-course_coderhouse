@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import Container from "../container/container.utils";
-import Product from "./product.model";
+import ProductUtils from "./product.utils";
 import checkAuthorization from "../utils/authorization.util";
 
 const productsRouter: Router = Router();
@@ -32,8 +32,7 @@ productsRouter.get('/:id', async (req: Request, res: Response) => {
 productsRouter.post('/', async (req: Request, res: Response) => {
     if (!checkAuthorization('/products', 'post', res)) return;
     try {
-        const { name, thumbnail, price } = req.body;
-        const id = await productsContainer.saveOne(new Product(name, price, thumbnail));
+        const id = await productsContainer.saveOne(ProductUtils.buildProductFromRequest(req));
         res.status(200).send({
             message: `Producto guardado con el id ${id}`,
             id: id
@@ -47,8 +46,7 @@ productsRouter.post('/', async (req: Request, res: Response) => {
 productsRouter.put('/:id', async (req: Request, res: Response) => {
     if (!checkAuthorization('/products', 'put', res)) return;
     try {
-        const { name, thumbnail, price } = req.body;
-        await productsContainer.updateOne(Number(req.params.id), new Product(name, price, thumbnail));
+        await productsContainer.updateOne(Number(req.params.id), ProductUtils.buildProductFromRequest(req));
         res.status(200).send({
             success: `Producto actualizado con el id [${req.params.id}]`
         });

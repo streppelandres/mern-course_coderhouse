@@ -8,7 +8,7 @@ const productsRouter: Router = Router();
 // TODO: Mover esto, no deberia estar en router
 const productsContainer: Container = new Container("14-class_01-final_products.json");
 
-productsRouter.get('/', async (req: Request, res: Response) => {
+productsRouter.get('/', async (_: Request, res: Response) => {
     try {
         const productos: Array<ContainerModel> = await productsContainer.getAll();
         res.status(200).send(productos);

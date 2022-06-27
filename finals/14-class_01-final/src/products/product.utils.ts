@@ -1,12 +1,12 @@
 import { Request } from "express";
 import moment from "moment";
-import Product from "./product.model";
+import ProductModel from "./product.model";
 
 export default class ProductUtils {
     private static TIMESTAMP_FORMAT = 'DD/MM/YYYY - HH:mm:ss';
 
-    public static buildProductFromRequest = (req: Request): Product => {
+    public static buildProductFromRequest = (req: Request): ProductModel => {
         const { name, thumbnail, price, stock } = req.body;
-        return new Product(name, price, thumbnail, moment().format(moment().format(ProductUtils.TIMESTAMP_FORMAT)), stock);
+        return new ProductModel(name, price, thumbnail, moment().format(moment().format(ProductUtils.TIMESTAMP_FORMAT)), stock);
     }
 }

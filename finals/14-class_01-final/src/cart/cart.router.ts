@@ -1,5 +1,8 @@
 import { Router, Request, Response } from "express";
 import Container from "../container/container.utils";
+import ProductModel from "../products/product.model";
+import ProductUtils from "../products/product.utils";
+import CartModel from "./cart.model";
 import CartUtils from "./cart.utils";
 
 const cartsRouter: Router = Router();
@@ -22,6 +25,7 @@ cartsRouter.post('/', async (req: Request, res: Response) => {
     }
 });
 
+// FIXME: Código repetido en products.router
 cartsRouter.delete('/:id', async (req: Request, res: Response) => {
     const id: string = req.params.id;
     try {
@@ -35,6 +39,7 @@ cartsRouter.delete('/:id', async (req: Request, res: Response) => {
     }
 });
 
+// FIXME: Código repetido en products.router
 cartsRouter.get('/:id', async (req: Request, res: Response) => {
     const id: string = req.params.id;
     try {
@@ -43,6 +48,31 @@ cartsRouter.get('/:id', async (req: Request, res: Response) => {
     } catch (error) {
         console.error(error);
         res.status(500).send({ message: `No se pudo cargar el carrito con el id ${id}` });
+    }
+});
+
+cartsRouter.post('/:id/products', async (req: Request, res: Response) => {
+    try {
+
+        // TODO: Mover el código de acá
+        const cartId: number = Number(req.params.id);
+        let cart: CartModel = await container.getById(Number(cartId)) as CartModel;
+
+        let newProduct: ProductModel = ProductUtils.buildProductFromRequest(req);
+        newProduct.id = req.body.id;
+
+        cart.productos.push(newProduct);
+
+        await container.updateOne(cartId, cart);
+
+        res.status(200).send({
+            success: `Producto agregado con al carrito [${cartId}]`,
+            product: newProduct
+        });
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ message: `No se pudo guardar el producto en el carrito.` });
     }
 });
 

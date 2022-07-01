@@ -18,6 +18,7 @@ productsRouter.get('/', async (_: Request, res: Response) => {
     }
 });
 
+// FIXME: Código repetido en cart.router
 productsRouter.get('/:id', async (req: Request, res: Response) => {
     const id: string = req.params.id;
     try {
@@ -56,6 +57,7 @@ productsRouter.put('/:id', async (req: Request, res: Response) => {
     }
 });
 
+// FIXME: Código repetido en cart.router
 productsRouter.delete('/:id', async (req: Request, res: Response) => {
     if (!checkAuthorization('/products', 'delete', res)) return;
     const id: string = req.params.id;

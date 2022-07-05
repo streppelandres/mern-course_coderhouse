@@ -1,0 +1,32 @@
+[
+	{
+		"timestamp": "05/07/2022 - 18:48:00",
+		"productos": [
+			{
+				"name": "Producto de prueba para el carrito 1",
+				"thumbnail": "http://dummyimage.com/180x100.png/ff4444/",
+				"price": 100,
+				"timestamp": "05/07/2022 - 18:46:46",
+				"stock": 100,
+				"id": 1
+			},
+			{
+				"name": "Producto de prueba para el carrito 2",
+				"thumbnail": "http://dummyimage.com/180x100.png/ff4444/",
+				"price": 120,
+				"timestamp": "05/07/2022 - 18:46:46",
+				"stock": 99,
+				"id": 2
+			},
+			{
+				"name": "Producto de prueba para el carrito 3",
+				"thumbnail": "http://dummyimage.com/180x100.png/ff4444/",
+				"price": 130,
+				"timestamp": "05/07/2022 - 18:46:46",
+				"stock": 98,
+				"id": 3
+			}
+		],
+		"id": 1
+	}
+]

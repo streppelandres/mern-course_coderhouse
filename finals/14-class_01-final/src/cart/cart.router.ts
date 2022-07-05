@@ -52,10 +52,10 @@ cartsRouter.get('/:id', async (req: Request, res: Response) => {
 });
 
 cartsRouter.post('/:id/products', async (req: Request, res: Response) => {
-    try {
+    // TODO: Mover la lógica de acá
+    const cartId: number = Number(req.params.id);
 
-        // TODO: Mover el código de acá
-        const cartId: number = Number(req.params.id);
+    try {
         let cart: CartModel = await container.getById(Number(cartId)) as CartModel;
 
         let newProduct: ProductModel = ProductUtils.buildProductFromRequest(req);
@@ -69,10 +69,37 @@ cartsRouter.post('/:id/products', async (req: Request, res: Response) => {
             success: `Producto agregado con al carrito [${cartId}]`,
             product: newProduct
         });
-        
+
     } catch (error) {
         console.error(error);
-        res.status(500).send({ message: `No se pudo guardar el producto en el carrito.` });
+        res.status(500).send({
+            message: `No se pudo guardar el producto en el carrito [${cartId}]`
+        });
+    }
+});
+
+cartsRouter.delete('/:id/products/:id_prod', async (req: Request, res: Response) => {
+    // TODO: Mover la lógica de acá
+    const cartId: number = Number(req.params.id);
+    const productIdToRemove: number = Number(req.params.id_prod);
+
+    try {
+        let cart: CartModel = await container.getById(Number(cartId)) as CartModel;
+
+        cart.productos = cart.productos.filter((p) => {
+            return p.id != productIdToRemove;
+        });
+
+        await container.updateOne(cartId, cart);
+
+        res.status(200).send({
+            success: `Producto [${productIdToRemove}] eliminado del carrito [${cartId}]`,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({
+            message: `No se pudo eliminar el producto [${productIdToRemove}] del carrito [${cartId}]`
+        });
     }
 });
 

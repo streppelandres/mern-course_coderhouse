@@ -24,11 +24,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:{{puerto}}/api/carts",
+							"raw": "{{url}}/api/carts",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "{{puerto}}",
 							"path": [
 								"api",
 								"carts"
@@ -53,11 +52,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:{{puerto}}/api/carts/1/products",
+							"raw": "{{url}}/api/carts/1/products",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "{{puerto}}",
 							"path": [
 								"api",
 								"carts",
@@ -74,11 +72,10 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:{{puerto}}/api/carts/1/products/4",
+							"raw": "{{url}}/api/carts/1/products/4",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "{{puerto}}",
 							"path": [
 								"api",
 								"carts",
@@ -110,11 +107,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:{{puerto}}/api/products",
+							"raw": "{{url}}/api/products",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "{{puerto}}",
 							"path": [
 								"api",
 								"products"
@@ -129,11 +125,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:{{puerto}}/api/products",
+							"raw": "{{url}}/api/products",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "{{puerto}}",
 							"path": [
 								"api",
 								"products"
@@ -161,11 +156,10 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:{{puerto}}/api/products/3",
+							"raw": "{{url}}/api/products/3",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "{{puerto}}",
 							"path": [
 								"api",
 								"products",
@@ -191,11 +185,10 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:{{puerto}}/api/products/4",
+							"raw": "{{url}}/api/products/4",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "{{puerto}}",
 							"path": [
 								"api",
 								"products",
@@ -220,11 +213,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:{{puerto}}/api/products/3",
+							"raw": "{{url}}/api/products/3",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "{{puerto}}",
 							"path": [
 								"api",
 								"products",
@@ -259,8 +251,9 @@
 	],
 	"variable": [
 		{
-			"key": "puerto",
-			"value": "8080"
+			"key": "url",
+			"value": "https://mern-course-coderhouse.herokuapp.com",
+			"type": "string"
 		}
 	]
 }

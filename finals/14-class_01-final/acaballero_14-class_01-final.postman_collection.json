@@ -1,0 +1,266 @@
+{
+	"info": {
+		"_postman_id": "bf49155e-32a6-42b6-a2d8-a1bbee4132cb",
+		"name": "acaballero_14-class_01-final",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8558476"
+	},
+	"item": [
+		{
+			"name": "Cart",
+			"item": [
+				{
+					"name": "Create new cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"name\": \"Producto de prueba para el carrito 1\",\r\n        \"thumbnail\": \"http://dummyimage.com/180x100.png/ff4444/\",\r\n        \"price\": 100,\r\n\t\t\"timestamp\": \"05/07/2022 - 18:46:46\",\r\n        \"stock\": 100,\r\n        \"id\": 1\r\n    },\r\n    {\r\n        \"name\": \"Producto de prueba para el carrito 2\",\r\n        \"thumbnail\": \"http://dummyimage.com/180x100.png/ff4444/\",\r\n        \"price\": 120,\r\n\t\t\"timestamp\": \"05/07/2022 - 18:46:46\",\r\n        \"stock\": 99,\r\n        \"id\": 2\r\n    },\r\n    {\r\n        \"name\": \"Producto de prueba para el carrito 3\",\r\n        \"thumbnail\": \"http://dummyimage.com/180x100.png/ff4444/\",\r\n        \"price\": 130,\r\n\t\t\"timestamp\": \"05/07/2022 - 18:46:46\",\r\n        \"stock\": 98,\r\n        \"id\": 3\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:{{puerto}}/api/carts",
+							"host": [
+								"localhost"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"api",
+								"carts"
+							]
+						},
+						"description": "Crea un nuevo carrito con los productos que reciba"
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar producto a carrito existente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Producto de prueba para el carrito 4\",\r\n    \"thumbnail\": \"http://dummyimage.com/180x100.png/ff4444/\",\r\n    \"price\": 140,\r\n    \"stock\": 73,\r\n    \"id\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:{{puerto}}/api/carts/1/products",
+							"host": [
+								"localhost"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"api",
+								"carts",
+								"1",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar producto del carrito",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:{{puerto}}/api/carts/1/products/4",
+							"host": [
+								"localhost"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"api",
+								"carts",
+								"1",
+								"products",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Agregar nuevo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Producto de prueba para el carrito 4\",\r\n    \"thumbnail\": \"http://dummyimage.com/180x100.png/ff4444/\",\r\n    \"price\": 140,\r\n    \"stock\": 73\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:{{puerto}}/api/products",
+							"host": [
+								"localhost"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener productos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:{{puerto}}/api/products",
+							"host": [
+								"localhost"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener por id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:{{puerto}}/api/products/3",
+							"host": [
+								"localhost"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"api",
+								"products",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar por id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:{{puerto}}/api/products/4",
+							"host": [
+								"localhost"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"api",
+								"products",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar uno",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Producto de prueba para el carrito 3\",\r\n    \"price\": 199,\r\n    \"thumbnail\": \"http://dummyimage.com/180x100.png/ff4444/\",\r\n    \"stock\": 95\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:{{puerto}}/api/products/3",
+							"host": [
+								"localhost"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"api",
+								"products",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "puerto",
+			"value": "8080"
+		}
+	]
+}

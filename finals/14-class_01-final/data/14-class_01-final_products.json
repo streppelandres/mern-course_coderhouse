@@ -1,0 +1,26 @@
+[
+	{
+		"name": "Producto de prueba para el carrito 1",
+		"price": 100,
+		"thumbnail": "http://dummyimage.com/180x100.png/ff4444/",
+		"stock": 100,
+		"timestamp": "05/07/2022 - 18:49:16",
+		"id": 1
+	},
+	{
+		"name": "Producto de prueba para el carrito 2",
+		"price": 120,
+		"thumbnail": "http://dummyimage.com/180x100.png/ff4444/",
+		"stock": 99,
+		"timestamp": "05/07/2022 - 18:49:27",
+		"id": 2
+	},
+	{
+		"name": "Producto de prueba para el carrito 3",
+		"price": 199,
+		"thumbnail": "http://dummyimage.com/180x100.png/ff4444/",
+		"stock": 95,
+		"timestamp": "05/07/2022 - 18:52:03",
+		"id": 3
+	}
+]
